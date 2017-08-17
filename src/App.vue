@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <el-menu :default-active="activeIndex" mode="horizontal">
+    <el-menu mode="horizontal">
       <el-menu-item index="1">
         <router-link to="/">用户</router-link>
       </el-menu-item>
@@ -17,8 +17,10 @@
 <script>
 export default {
   name: 'app',
-  data: {
-    activeIndex: 1
+  data () {
+    return {
+      activeIndex: 1
+    }
   }
 }
 </script>
@@ -33,7 +35,8 @@ export default {
     text-decoration: none;
   }
 
-  .box-card {
+  .box-card,
+  .opt-panel {
     margin: 30px 20px;
   }
 
