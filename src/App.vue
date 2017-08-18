@@ -9,6 +9,10 @@
         <router-link to="/coupon">优惠券</router-link>
       </el-menu-item>
 
+      <el-menu-item index="3">
+        <router-link to="/delivery">发货</router-link>
+      </el-menu-item>
+
     </el-menu>
     <router-view></router-view>
   </div>
@@ -19,7 +23,6 @@ export default {
   name: 'app',
   data () {
     return {
-      activeIndex: 1
     }
   }
 }

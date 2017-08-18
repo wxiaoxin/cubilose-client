@@ -72,7 +72,7 @@
 
 <script>
   export default {
-    name: 'coupon',
+    name: 'delivery',
     data () {
       return {
         couponData: [],
