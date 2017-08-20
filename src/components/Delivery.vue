@@ -41,7 +41,9 @@
 
         <el-table-column prop="logisticsNumber" label="物流">
           <template scope="scope">
+            <a :href="getUrl(scope.row.logisticsNumber)" target="_blank">
             {{getExpressageInfo(scope.row.logisticsNumber)}}
+            </a>
           </template>
         </el-table-column>
 
@@ -215,6 +217,10 @@
             return e['name'] + '-' + expressageNum
           }
         }
+      },
+      getUrl (logisticsNumber) {
+        let split = logisticsNumber.split('-')
+        return 'https://m.kuaidi100.com/result.jsp?com=' + split[0] + '&nu=' + split[1]
       },
       // 格式化时间
       formatDateTime (time) {
