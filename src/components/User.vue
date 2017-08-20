@@ -102,7 +102,11 @@
           .then((response) => {
             let respData = response.data
             if (respData.code === 0) {
-              this.userData = respData.data
+              this.listUserData()
+              this.$message({
+                message: '用户列表拉取成功!',
+                type: 'success'
+              })
             }
           })
       }
