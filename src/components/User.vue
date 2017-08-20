@@ -10,6 +10,10 @@
           </el-input>
         </el-col>
 
+        <el-col :span="2" :offset="1">
+          <el-button @click="pullUserList">拉取用户列表</el-button>
+        </el-col>
+
       </el-row>
 
     </div>
@@ -26,7 +30,7 @@
         <el-table-column prop="sex" label="性别" width="180">
           <template scope="scope">
             <el-tag type="primary" v-if="scope.row.sex === 1">男</el-tag>
-            <el-tag type="info" v-if="scope.row.sex === 2">女</el-tag>
+            <el-tag type="danger" v-if="scope.row.sex === 2">女</el-tag>
           </template>
         </el-table-column>
 
@@ -37,6 +41,9 @@
         </el-table-column>
 
         <el-table-column prop="subscribeTime" label="关注时间" width="240">
+          <template scope="scope">
+            {{scope.row.subscribeTime.substr(0, 19)}}
+          </template>
         </el-table-column>
 
         <el-table-column prop="couponSize" label="优惠券" width="180">
@@ -88,6 +95,16 @@
             this.userData = respData.data
           }
         })
+      },
+      // 拉取最新用户列表
+      pullUserList () {
+        this.$http.get('http://localhost:10086/user/pull_user_list')
+          .then((response) => {
+            let respData = response.data
+            if (respData.code === 0) {
+              this.userData = respData.data
+            }
+          })
       }
     },
     created () {

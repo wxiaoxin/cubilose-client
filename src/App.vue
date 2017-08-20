@@ -1,18 +1,9 @@
 <template>
   <div id="app">
-    <el-menu mode="horizontal">
-      <el-menu-item index="1">
-        <router-link to="/">用户</router-link>
-      </el-menu-item>
-
-      <el-menu-item index="2">
-        <router-link to="/coupon">优惠券</router-link>
-      </el-menu-item>
-
-      <el-menu-item index="3">
-        <router-link to="/delivery">发货</router-link>
-      </el-menu-item>
-
+    <el-menu mode="horizontal" router>
+      <el-menu-item index="/" > 用户 </el-menu-item>
+      <el-menu-item index="/coupon"> 优惠券 </el-menu-item>
+      <el-menu-item index="/delivery"> 发货 </el-menu-item>
     </el-menu>
     <router-view></router-view>
   </div>
