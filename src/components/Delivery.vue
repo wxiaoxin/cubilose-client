@@ -186,9 +186,11 @@
       },
       showDeliverDialog (id, logisticsNumber) {
         this.form.id = id
-        let split = logisticsNumber.split('-')
-        this.form.expressageCompany = split[0]
-        this.form.expressageNumber = split[1]
+        if (logisticsNumber !== undefined && logisticsNumber !== '') {
+          let split = logisticsNumber.split('-')
+          this.form.expressageCompany = split[0]
+          this.form.expressageNumber = split[1]
+        }
         this.deliverDialogVisible = true
       },
       // 发货
@@ -208,19 +210,27 @@
       },
       // 获取物流信息
       getExpressageInfo (value) {
-        let split = value.split('-')
-        let expressageCode = split[0]
-        let expressageNum = split[1]
-        for (let i = 0; i < this.expressages.length; i++) {
-          let e = this.expressages[i]
-          if (e['code'] === expressageCode) {
-            return e['name'] + '-' + expressageNum
+        if (value !== undefined && value !== '') {
+          let split = value.split('-')
+          let expressageCode = split[0]
+          let expressageNum = split[1]
+          for (let i = 0; i < this.expressages.length; i++) {
+            let e = this.expressages[i]
+            if (e['code'] === expressageCode) {
+              return e['name'] + '-' + expressageNum
+            }
           }
+        } else {
+          return ''
         }
       },
       getUrl (logisticsNumber) {
-        let split = logisticsNumber.split('-')
-        return 'https://m.kuaidi100.com/result.jsp?com=' + split[0] + '&nu=' + split[1]
+        if (logisticsNumber !== undefined && logisticsNumber !== '') {
+          let split = logisticsNumber.split('-')
+          return 'https://m.kuaidi100.com/result.jsp?com=' + split[0] + '&nu=' + split[1]
+        } else {
+          return ''
+        }
       },
       // 格式化时间
       formatDateTime (time) {
