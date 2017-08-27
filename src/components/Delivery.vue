@@ -171,7 +171,7 @@
     methods: {
       // 加载首页数据
       listUserCouponsData () {
-        this.$http.get('http://localhost:10086/uc/list', {
+        this.$http.get('http://www.birdnesket.com/uc/list', {
           params: {
             keyword: this.keyword,
             pageNum: this.page.pageNum,
@@ -195,7 +195,7 @@
       },
       // 发货
       deliver () {
-        this.$http.get('http://localhost:10086/uc/deliver', {
+        this.$http.get('http://www.birdnesket.com/uc/deliver', {
           params: {
             id: this.form.id,
             logisticsNumber: this.form.expressageCompany + '-' + this.form.expressageNumber

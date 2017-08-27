@@ -135,7 +135,7 @@
     },
     methods: {
       listCouponData () {
-        this.$http.get('http://localhost:10086/coupon/list', {
+        this.$http.get('http://www.birdnesket.com/coupon/list', {
           params: {
             pageNum: this.page.pageNum,
             pageSize: this.page.pageSize
@@ -158,7 +158,7 @@
         this.listCouponData()
       },
       search () {
-        this.$http.get('http://localhost:10086/coupon/query', {
+        this.$http.get('http://www.birdnesket.com/coupon/query', {
           params: {
             pageNum: this.page.pageNum,
             pageSize: this.page.pageSize,
@@ -189,7 +189,7 @@
           let m = date.getMinutes() + ':'
           let s = date.getSeconds()
           let endTime = Y + M + D + h + m + s
-          this.$http.get('http://localhost:10086/coupon/generate', {
+          this.$http.get('http://www.birdnesket.com/coupon/generate', {
             params: {
               codeLength: this.form.length,
               codeSize: this.form.size,
@@ -216,7 +216,7 @@
           cancelButtonText: '取消',
           type: 'warning'
         }).then(() => {
-          this.$http.get('http://localhost:10086/coupon/del/' + id)
+          this.$http.get('http://www.birdnesket.com/coupon/del/' + id)
             .then((response) => {
               let respData = response.data
               if (respData.code === 0) {
@@ -231,7 +231,7 @@
       },
       // 启用
       use (id) {
-        this.$http.get('http://localhost:10086/coupon/enable/' + id)
+        this.$http.get('http://www.birdnesket.com/coupon/enable/' + id)
           .then((response) => {
             let respData = response.data
             if (respData.code === 0) {
@@ -244,7 +244,7 @@
           })
       },
       exportCodes () {
-        window.location.href = 'http://localhost:10086/coupon/export'
+        window.location.href = 'http://www.birdnesket.com/coupon/export'
       },
       getStatus (status) {
         if (status === 1) {
