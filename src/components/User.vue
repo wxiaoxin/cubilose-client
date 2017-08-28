@@ -70,7 +70,7 @@
     },
     methods: {
       listUserData () {
-        this.$http.get('http://www.birdnesket.com/user/list', {
+        this.$http.get('/user/list', {
           params: {
             pageNum: this.page.pageNum,
             pageSize: this.page.pageSize
@@ -83,7 +83,7 @@
         })
       },
       search () {
-        this.$http.get('http://www.birdnesket.com/user/query', {
+        this.$http.get('/user/query', {
           params: {
             keyword: this.keyword,
             pageNum: this.page.pageNum,
@@ -98,7 +98,7 @@
       },
       // 拉取最新用户列表
       pullUserList () {
-        this.$http.get('http://www.birdnesket.com/user/pull_user_list')
+        this.$http.get('/user/pull_user_list')
           .then((response) => {
             let respData = response.data
             if (respData.code === 0) {

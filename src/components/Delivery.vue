@@ -16,7 +16,7 @@
         </el-col>
 
         <el-col :span="4" :offset="1">
-          <el-input placeholder="回车搜索" icon="search"
+          <el-input placeholder="搜索" icon="search"
                     v-model="keyword" @keyup.enter.native="listUserCouponsData">
           </el-input>
         </el-col>
@@ -45,6 +45,9 @@
         </el-table-column>
 
         <el-table-column prop="price" label="价钱">
+        </el-table-column>
+
+        <el-table-column prop="phoneNumber" label="手机">
         </el-table-column>
 
         <el-table-column prop="address" label="地址">
@@ -198,7 +201,7 @@
     methods: {
       // 加载首页数据
       listUserCouponsData () {
-        this.$http.get('http://www.birdnesket.com/uc/list', {
+        this.$http.get('/uc/list', {
           params: {
             type: this.searchTypeValue,
             keyword: this.keyword,
@@ -235,7 +238,7 @@
       },
       // 发货
       deliver () {
-        this.$http.get('http://www.birdnesket.com/uc/deliver', {
+        this.$http.get('/uc/deliver', {
           params: {
             id: this.form.id,
             logisticsNumber: this.form.expressageCompany + '-' + this.form.expressageNumber

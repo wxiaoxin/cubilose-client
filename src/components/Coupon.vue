@@ -18,6 +18,12 @@
           <el-button @click="exportCodes">导出优惠券码</el-button>
         </el-col>
 
+        <el-col :span="4" :offset="1">
+          <el-button type="text">已用：{{couponStatusCount.used}}</el-button>
+          <el-button type="text">可用：{{couponStatusCount.valid}}</el-button>
+          <el-button type="text">禁用：{{couponStatusCount.disable}}</el-button>
+        </el-col>
+
       </el-row>
 
     </div>
@@ -41,7 +47,7 @@
           </template>
         </el-table-column>
 
-        <el-table-column prop="status" label="状态">
+        <el-table-column prop="status" label="状态" sortable>
           <template scope="scope">
             <el-tag type="danger" v-if="scope.row.status === -1">禁用</el-tag>
             <el-tag type="primary" v-if="scope.row.status === 1">有效</el-tag>
@@ -120,6 +126,11 @@
     data () {
       return {
         couponData: [],
+        couponStatusCount: {
+          valid: 0,
+          used: 0,
+          disable: 0
+        },
         page: {
           pageNum: 1,
           pageSize: 10
@@ -138,7 +149,7 @@
     },
     methods: {
       listCouponData () {
-        this.$http.get('http://www.birdnesket.com/coupon/list', {
+        this.$http.get('/coupon/list', {
           params: {
             pageNum: this.page.pageNum,
             pageSize: this.page.pageSize
@@ -149,6 +160,24 @@
             this.couponData = respData.data
           }
         })
+      },
+      // 查询统计数据
+      count () {
+        this.$http.get('/coupon/count')
+          .then((response) => {
+            let respData = response.data
+            if (respData.code === 0) {
+              respData.data.forEach(item => {
+                if (item.status === -1) {
+                  this.couponStatusCount.disable = item.count
+                } else if (item.status === 1) {
+                  this.couponStatusCount.valid = item.count
+                } else if (item.status === 2) {
+                  this.couponStatusCount.used = item.count
+                }
+              })
+            }
+          })
       },
       // 上一页
       pre () {
@@ -163,7 +192,7 @@
         this.listCouponData()
       },
       search () {
-        this.$http.get('http://www.birdnesket.com/coupon/query', {
+        this.$http.get('/coupon/query', {
           params: {
             pageNum: this.page.pageNum,
             pageSize: this.page.pageSize,
@@ -194,7 +223,7 @@
           let m = date.getMinutes() + ':'
           let s = date.getSeconds()
           let endTime = Y + M + D + h + m + s
-          this.$http.get('http://www.birdnesket.com/coupon/generate', {
+          this.$http.get('/coupon/generate', {
             params: {
               codeLength: this.form.length,
               codeSize: this.form.size,
@@ -221,7 +250,7 @@
           cancelButtonText: '取消',
           type: 'warning'
         }).then(() => {
-          this.$http.get('http://www.birdnesket.com/coupon/del/' + id)
+          this.$http.get('/coupon/del/' + id)
             .then((response) => {
               let respData = response.data
               if (respData.code === 0) {
@@ -236,7 +265,7 @@
       },
       // 启用
       use (id) {
-        this.$http.get('http://www.birdnesket.com/coupon/enable/' + id)
+        this.$http.get('/coupon/enable/' + id)
           .then((response) => {
             let respData = response.data
             if (respData.code === 0) {
@@ -249,7 +278,7 @@
           })
       },
       exportCodes () {
-        window.location.href = 'http://www.birdnesket.com/coupon/export'
+        window.location.href = '/coupon/export'
       },
       getStatus (status) {
         if (status === 1) {
@@ -263,6 +292,7 @@
     },
     created () {
       this.listCouponData()
+      this.count()
     }
   }
 </script>

@@ -9,6 +9,10 @@ import 'element-ui/lib/theme-default/index.css'
 Vue.use(ElementUI)
 
 import axios from 'axios'
+
+// axios.defaults.baseURL = 'http://localhost:8888'
+axios.defaults.baseURL = 'http://www.birdnesket.com'
+
 Vue.prototype.$http = axios
 
 Vue.config.productionTip = false
