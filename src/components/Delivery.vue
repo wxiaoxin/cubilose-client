@@ -4,8 +4,19 @@
     <div class="opt-panel">
       <el-row>
 
-        <el-col :span="4">
-          <el-input placeholder="搜索" icon="search"
+        <el-col :span="2">
+          <el-select v-model="searchTypeValue" filterable clearable placeholder="请选择">
+            <el-option
+              v-for="item in searhTypes"
+              :key="item.value"
+              :label="item.label"
+              :value="item.value">
+            </el-option>
+          </el-select>
+        </el-col>
+
+        <el-col :span="4" :offset="1">
+          <el-input placeholder="回车搜索" icon="search"
                     v-model="keyword" @keyup.enter.native="listUserCouponsData">
           </el-input>
         </el-col>
@@ -68,6 +79,9 @@
 
       </el-table>
 
+      <el-button type="text" @click="pre" :disabled="page.pageNum <= 1">< 上一页</el-button>
+      <el-button type="text" @click="next">下一页 ></el-button>
+
     </el-card>
 
     <el-dialog title="发货" :visible.sync="deliverDialogVisible">
@@ -100,6 +114,19 @@
     name: 'delivery',
     data () {
       return {
+        searchTypeValue: '',
+        searhTypes: [
+          {
+            label: '手机号',
+            value: 1
+          }, {
+            label: '微信名',
+            value: 2
+          }, {
+            label: '优惠码',
+            value: 3
+          }
+        ],
         userCouponsData: [],
         page: {
           pageNum: 1,
@@ -173,6 +200,7 @@
       listUserCouponsData () {
         this.$http.get('http://www.birdnesket.com/uc/list', {
           params: {
+            type: this.searchTypeValue,
             keyword: this.keyword,
             pageNum: this.page.pageNum,
             pageSize: this.page.pageSize
@@ -183,6 +211,18 @@
             this.userCouponsData = respData.data
           }
         })
+      },
+      // 上一页
+      pre () {
+        if (this.page.pageNum > 1) {
+          this.page.pageNum--
+          this.listUserCouponsData()
+        }
+      },
+      // 下一页
+      next () {
+        this.page.pageNum++
+        this.listUserCouponsData()
       },
       showDeliverDialog (id, logisticsNumber) {
         this.form.id = id
