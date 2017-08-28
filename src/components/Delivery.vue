@@ -76,7 +76,7 @@
           <el-input v-model="form.id" style="width: 320px"></el-input>
         </el-form-item>
         <el-form-item label="快递公司" >
-          <el-select v-model="form.expressageCompany" placeholder="请选择">
+          <el-select v-model="form.expressageCompany" filterable clearable placeholder="请选择">
             <el-option v-for="item in expressages" :key="item.code"
                        :label="item.name" :value="item.code">
             </el-option>
@@ -114,8 +114,28 @@
         },
         expressages: [
           {
+            'code': 'yunda',
+            'name': '韵达快运'
+          },
+          {
+            'code': 'shunfeng',
+            'name': '顺丰'
+          },
+          {
+            'code': 'yuantong',
+            'name': '圆通速递'
+          },
+          {
             'code': 'debangwuliu',
             'name': '德邦物流'
+          },
+          {
+            'code': 'shentong',
+            'name': '申通'
+          },
+          {
+            'code': 'zhongtong',
+            'name': '中通速递'
           },
           {
             'code': 'ems',
@@ -134,36 +154,16 @@
             'name': '如风达'
           },
           {
-            'code': 'shentong',
-            'name': '申通'
-          },
-          {
-            'code': 'shunfeng',
-            'name': '顺丰'
-          },
-          {
-            'code': 'tiantian',
-            'name': '天天快递'
-          },
-          {
-            'code': 'yuantong',
-            'name': '圆通速递'
-          },
-          {
-            'code': 'yunda',
-            'name': '韵达快运'
-          },
-          {
             'code': 'zhaijisong',
             'name': '宅急送'
           },
           {
-            'code': 'zhongtong',
-            'name': '中通速递'
-          },
-          {
             'code': 'zhimakaimen',
             'name': '芝麻开门'
+          },
+          {
+            'code': 'tiantian',
+            'name': '天天快递'
           }
         ]
       }
