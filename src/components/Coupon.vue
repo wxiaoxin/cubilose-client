@@ -65,11 +65,14 @@
 
       </el-table>
 
-      <el-pagination
-        @size-change="handleSizeChange" @current-change="handleCurrentChange"
-        :page-sizes="[10, 20, 50, 100, 300, 400]" :page-size="page.pageSize"
-        layout="sizes, prev, pager, next" :total="99">
-      </el-pagination>
+      <el-button type="text" @click="pre" :disabled="page.pageNum <= 1">< 上一页</el-button>
+      <el-button type="text" @click="next">下一页 ></el-button>
+
+      <!--<el-pagination-->
+        <!--@size-change="handleSizeChange" @current-change="handleCurrentChange"-->
+        <!--:page-sizes="[10, 20, 50, 100, 300, 400]" :page-size="page.pageSize"-->
+        <!--layout="sizes, prev, pager, next" :total="99">-->
+      <!--</el-pagination>-->
 
     </el-card>
 
@@ -147,14 +150,16 @@
           }
         })
       },
-      handleSizeChange (val) {
-        console.log(val)
-        this.page.pageSize = val
-        this.listCouponData()
+      // 上一页
+      pre () {
+        if (this.page.pageNum > 1) {
+          this.page.pageNum--
+          this.listCouponData()
+        }
       },
-      handleCurrentChange (val) {
-        console.log(val)
-        this.page.pageNum = val
+      // 下一页
+      next () {
+        this.page.pageNum++
         this.listCouponData()
       },
       search () {
