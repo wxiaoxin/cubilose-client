@@ -117,7 +117,7 @@
     name: 'delivery',
     data () {
       return {
-        searchTypeValue: 0,
+        searchTypeValue: '',
         searhTypes: [
           {
             label: '手机号',
